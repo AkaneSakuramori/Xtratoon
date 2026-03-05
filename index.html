@@ -15,123 +15,120 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #000;
-            color: #fff;
-            font-family: 'Equinox', system-ui, sans-serif;
             height: 100vh;
-            overflow: hidden;
-            position: relative;
+            background: #05050f;
+            font-family: 'Equinox', system-ui, sans-serif;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .title {
-            font-size: clamp(4.5rem, 18vw, 13rem);
-            line-height: 0.78;
+        /* NEW working GIF (blurred background) */
+        .bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://i.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif') center/cover no-repeat;
+            filter: blur(28px) brightness(0.45) saturate(1.4);
+            z-index: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 5, 15, 0.78);
+            z-index: 2;
+        }
+
+        .frame {
+            position: relative;
+            z-index: 3;
+            width: 92%;
+            max-width: 920px;
+            height: 92%;
+            max-height: 620px;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 60px 40px;
+        }
+
+        .eye {
+            width: 82px;
+            margin-bottom: 28px;
+        }
+
+        .revealing {
+            font-size: 1.3rem;
+            letter-spacing: 8px;
+            opacity: 0.85;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(5rem, 14vw, 10.5rem);
+            line-height: 0.82;
+            letter-spacing: -10px;
             text-transform: uppercase;
-            letter-spacing: -0.06em;
-            font-weight: 400;
-            z-index: 10;
-            text-shadow: 0 0 60px rgba(255,255,255,0.25);
+            text-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff;
+            margin-bottom: 60px;
         }
 
-        .title div { margin: -1.2vw 0; }
+        .btn {
+            padding: 18px 68px;
+            font-size: 1.15rem;
+            letter-spacing: 6px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
 
-        /* Glassmorphic panels (angled like your reference image) */
-        .glass-panel {
+        .btn:hover {
+            background: #ff00ff;
+            border-color: #ff00ff;
+            box-shadow: 0 0 40px #ff00ff;
+            transform: scale(1.05);
+        }
+
+        .tagline {
             position: absolute;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7),
-                        inset 0 0 40px rgba(255, 255, 255, 0.08);
-            z-index: 5;
+            bottom: 48px;
+            font-size: 1.05rem;
+            opacity: 0.75;
+            letter-spacing: 3px;
         }
 
-        .glass1 { top: 8%; left: -5%; width: 52%; height: 38%; transform: rotate(-24deg); }
-        .glass2 { top: 22%; right: -8%; width: 48%; height: 52%; transform: rotate(19deg); }
-        .glass3 { bottom: 12%; left: 15%; width: 36%; height: 28%; transform: rotate(-38deg); }
-
-        /* Anime girl glass card */
-        .glass-card {
-            position: absolute;
-            bottom: 9%;
-            right: 7%;
-            width: 290px;
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 105, 180, 0.25);
-            border-radius: 24px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75),
-                        0 0 40px rgba(255, 20, 147, 0.3);
-            z-index: 15;
-            animation: floatGirl 7s ease-in-out infinite;
-        }
-
-        .dancer {
-            width: 100%;
-            border-radius: 16px;
-            display: block;
-        }
-
-        @keyframes floatGirl {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-22px) rotate(3deg); }
-        }
-
-        /* Small poster-style text */
-        .corner-text {
-            position: absolute;
-            font-size: 0.95rem;
-            opacity: 0.6;
-            letter-spacing: 1px;
-            z-index: 20;
-        }
-
-        .top-right { top: 6%; right: 6%; text-align: right; }
-        .bottom-left { bottom: 6%; left: 6%; }
-
-        /* Mobile tweaks */
         @media (max-width: 768px) {
-            .title { font-size: clamp(3.2rem, 15vw, 7rem); }
-            .glass-card { width: 220px; bottom: 6%; right: 5%; }
-            .glass1, .glass2, .glass3 { opacity: 0.85; }
+            .frame { padding: 40px 20px; height: 96%; }
+            h1 { letter-spacing: -6px; }
         }
     </style>
 </head>
 <body>
-    <!-- Glass panels -->
-    <div class="glass-panel glass1"></div>
-    <div class="glass-panel glass2"></div>
-    <div class="glass-panel glass3"></div>
+    <div class="bg"></div>
+    <div class="overlay"></div>
 
-    <!-- Main title - exactly like your image -->
-    <div class="title">
-        <div>COM</div>
-        <div>ING</div>
-        <div>SOON</div>
-    </div>
+    <div class="frame">
+        <!-- Anime-style slashed eye -->
+        <svg class="eye" viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M70 22 Q38 42 70 62 Q102 42 70 22" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"/>
+            <circle cx="70" cy="42" r="13" stroke="#ffffff" stroke-width="7"/>
+            <line x1="28" y1="18" x2="112" y2="64" stroke="#ff00ff" stroke-width="10" stroke-linecap="round"/>
+        </svg>
 
-    <!-- Anime girl in glass card -->
-    <div class="glass-card">
-        <img src="https://i.giphy.com/media/26BRv0R5t3z8w/giphy.gif" 
-             alt="Dancing Anime Girl" 
-             class="dancer">
-    </div>
+        <div class="revealing">REVEALING SOON</div>
+        <h1>COMING SOON</h1>
+        
+        <button class="btn" onclick="alert('Notify me when it drops! 🚀')">STAY TUNED</button>
 
-    <!-- Small text like your reference poster -->
-    <div class="corner-text top-right">
-        ANIME UNIVERSE<br>
-        <span style="font-size:0.8rem;">EST. 2024</span>
-    </div>
-    <div class="corner-text bottom-left">
-        YOUR DOMAIN<br>
-        WAIFUS LOADING...
+        <div class="tagline">Something intresting awaits...</div>
     </div>
 </body>
 </html>
