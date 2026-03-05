@@ -41,7 +41,12 @@ function TimerUnit({ value, label }: { value: number; label: string }) {
 }
 
 export function CountdownTimer() {
-  const targetDate = new Date("2026-06-15T00:00:00")
+  const [targetDate] = useState<Date>(() => {
+    const target = new Date()
+    target.setDate(target.getDate() + 31)
+    target.setHours(0, 0, 0, 0)
+    return target
+  })
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(
     calculateTimeLeft(targetDate)
   )
@@ -54,7 +59,7 @@ export function CountdownTimer() {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [targetDate])
 
   if (!mounted) {
     return (
